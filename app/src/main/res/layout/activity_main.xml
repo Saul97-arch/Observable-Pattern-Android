@@ -40,4 +40,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/second_fragment"
         tools:layout="@layout/fragment_third" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_theme"
+        android:layout_margin="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/third_fragment"
+        app:layout_constraintStart_toStartOf="@+id/third_fragment"
+        app:layout_constraintTop_toBottomOf="@+id/third_fragment"
+ />
 </androidx.constraintlayout.widget.ConstraintLayout>
