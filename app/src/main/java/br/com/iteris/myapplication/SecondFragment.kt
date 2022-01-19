@@ -13,10 +13,6 @@ class SecondFragment : Fragment(), Observer {
 
     private lateinit var tv : TextView
 
-    companion object {
-        fun newInstance() = SecondFragment()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,7 +24,6 @@ class SecondFragment : Fragment(), Observer {
         return view
     }
 
-    // Passando o dado pelo construtor evitamos acoplamento, isso é o Strategy Pattern
     @SuppressLint("SetTextI18n")
     override fun update(checked: Boolean) {
         if (checked) {

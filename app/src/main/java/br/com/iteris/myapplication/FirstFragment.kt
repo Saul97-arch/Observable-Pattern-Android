@@ -13,10 +13,6 @@ class FirstFragment : Fragment(), Observer {
 
     private lateinit var tv: TextView
 
-    companion object {
-        fun newInstace() = FirstFragment()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

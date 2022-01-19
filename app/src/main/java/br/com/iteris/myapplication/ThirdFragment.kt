@@ -11,10 +11,6 @@ class ThirdFragment : Fragment(), Subject {
 
     private lateinit var button : ToggleButton
 
-    companion object {
-        fun newInstance() = ThirdFragment()
-    }
-
     private val observers: MutableList<Observer?>
 
     init {

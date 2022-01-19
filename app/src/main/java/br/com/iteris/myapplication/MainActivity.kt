@@ -1,31 +1,48 @@
 package br.com.iteris.myapplication
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Switch
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var switch : SwitchCompat
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.darkTheme)
         } else {
             setTheme(R.style.Theme_MyApplication)
         }
 
-        val firstFragment = FirstFragment()
-        val secondFragment = SecondFragment()
-        val thirdFragment = ThirdFragment()
-
-        thirdFragment.register(firstFragment)
-        thirdFragment.register(secondFragment)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val switch = findViewById<SwitchCompat>(R.id.switch_theme)
+        val (firstFragment, secondFragment, thirdFragment) = setupFragments()
+        Log.i("RONALDO", "onCreate: ESTÁ RODANDO DE NOVO")
+        registerObservables(thirdFragment, firstFragment, secondFragment)
+        setupSwitchListener()
+        stackFragments(firstFragment, secondFragment, thirdFragment)
+    }
 
+    private fun stackFragments(
+        firstFragment: FirstFragment,
+        secondFragment: SecondFragment,
+        thirdFragment: ThirdFragment
+    ) {
+        supportFragmentManager.beginTransaction().add(R.id.first_fragment, firstFragment)
+            .commit()
+        supportFragmentManager.beginTransaction().add(R.id.second_fragment, secondFragment)
+            .commit()
+        supportFragmentManager.beginTransaction().add(R.id.third_fragment, thirdFragment)
+            .commit()
+    }
+
+    private fun setupSwitchListener() {
+        switch = findViewById(R.id.switch_theme)
         switch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -33,12 +50,21 @@ class MainActivity : AppCompatActivity() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
+    }
 
-        supportFragmentManager.beginTransaction().add(R.id.first_fragment, firstFragment)
-            .commit()
-        supportFragmentManager.beginTransaction().add(R.id.second_fragment, secondFragment)
-            .commit()
-        supportFragmentManager.beginTransaction().add(R.id.third_fragment, thirdFragment)
-            .commit()
+    private fun registerObservables(
+        thirdFragment: ThirdFragment,
+        firstFragment: FirstFragment,
+        secondFragment: SecondFragment
+    ) {
+        thirdFragment.register(firstFragment)
+        thirdFragment.register(secondFragment)
+    }
+
+    private fun setupFragments(): Triple<FirstFragment, SecondFragment, ThirdFragment> {
+        val firstFragment = FirstFragment()
+        val secondFragment = SecondFragment()
+        val thirdFragment = ThirdFragment()
+        return Triple(firstFragment, secondFragment, thirdFragment)
     }
 }
