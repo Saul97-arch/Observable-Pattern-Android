@@ -1,7 +1,11 @@
 package br.com.iteris.myapplication
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
@@ -12,11 +16,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            setTheme(R.style.darkTheme)
-        } else {
-            setTheme(R.style.Theme_MyApplication)
-        }
+//        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+//            setTheme(R.style.darkTheme)
+//        } else {
+//            setTheme(R.style.Theme_MyApplication)
+//        }
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,11 +37,11 @@ class MainActivity : AppCompatActivity() {
         secondFragment: SecondFragment,
         thirdFragment: ThirdFragment
     ) {
-        supportFragmentManager.beginTransaction().add(R.id.first_fragment, firstFragment)
+        supportFragmentManager.beginTransaction().replace(R.id.first_fragment, firstFragment)
             .commit()
-        supportFragmentManager.beginTransaction().add(R.id.second_fragment, secondFragment)
+        supportFragmentManager.beginTransaction().replace(R.id.second_fragment, secondFragment)
             .commit()
-        supportFragmentManager.beginTransaction().add(R.id.third_fragment, thirdFragment)
+        supportFragmentManager.beginTransaction().replace(R.id.third_fragment, thirdFragment)
             .commit()
     }
 
